@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 export const Bar = styled.div`
   padding: 0px 16px;
-  background-color: #E4212D;
+  background-color: #601a35;
   overflow: hidden;
   display: flex;
   flex-direction: row;
