@@ -5,11 +5,8 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
-import {
-  StyledCard,
-  ButtonContainer,
-  StyledButton,
-} from './ProductCard.styled';
+import { StyledCard, ButtonContainer } from './ProductCard.styled';
+import { StyledButton } from '../common/styled.components';
 
 const ProductCard = ({ product }) => {
   const { name, price, categories, images } = product;
