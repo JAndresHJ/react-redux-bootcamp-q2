@@ -3,7 +3,12 @@ import { Row, Column } from '../../components/common/styled.components';
 
 export const CartWrapper = styled(Row)`
   margin-top: 7px;
-  padding: 20px 80px;
+  padding: 20px;
+
+  @media (max-width: 1024px) {
+    flex-direction: column;
+    gap: 20px;
+  }
 `;
 
 export const SummaryWrapper = styled(Column)`
@@ -11,7 +16,12 @@ export const SummaryWrapper = styled(Column)`
   width: auto;
   height: fit-content;
   padding: 30px;
+  max-width: 200px;
   background-color: #e5e7eb;
+
+  @media (max-width: 1024px) {
+    align-self: flex-start;
+  }
 `;
 
 export const SummaryItem = styled(Row)`

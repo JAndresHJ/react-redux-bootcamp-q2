@@ -23,6 +23,14 @@ export const Links = styled(Link)`
   font-size: 17px;
 `;
 
+export const MenuLink = styled(Link)`
+  color: black;
+  display: block;
+  text-decoration: none;
+  padding: 10px 0;
+  font-size: 17px;
+`;
+
 export const Text = styled.p`
   color: white;
   display: block;
@@ -34,4 +42,8 @@ export const Text = styled.p`
 
 export const FlexContainer = styled.div`
   display: flex;
+
+  a {
+    align-self: center;
+  }
 `;
