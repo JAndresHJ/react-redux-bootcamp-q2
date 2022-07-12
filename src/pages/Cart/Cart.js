@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import productsData from '../../utils/products.json';
 import {
   CartWrapper,
   SummaryItem,
@@ -9,56 +8,41 @@ import {
   DetailsContainer,
 } from './Cart.styled';
 import { StyledButton } from '../../components/common/styled.components';
+import { useSelector, useDispatch } from 'react-redux';
+import { createOrder } from '../../store';
+import { useHistory } from 'react-router-dom';
 
 // Components
 import Typography from '@mui/material/Typography';
 import Product from './Product/Product';
-
-const {
-  data: { products },
-} = productsData;
-
-const mockCartProducts = [
-  products.items[0],
-  products.items[1],
-  products.items[2],
-  products.items[3],
-  products.items[4],
-];
-
-export const getTotal = (quantity = 1, price) => {
-  return quantity * price;
-};
+import Loading from '../../components/common/Loading';
 
 const Cart = () => {
-  const [cartItems, setCartItems] = useState(mockCartProducts);
+  const { cartProducts, totalCost } = useSelector((state) => state.cart);
+  const { loading, order } = useSelector((state) => state.order);
+  const { push } = useHistory();
+  const dispatch = useDispatch();
+  const totalItems = cartProducts.reduce((acc, object) => {
+    return acc + object.quantity;
+  }, 0);
 
-  const calculateTotal = (items) =>
-    items.reduce((acc, item) => acc + getTotal(item.quantity, item.price), 0);
-
-  const onQuantityChange = (event, product) => {
-    console.log('Value: ', event.target.value);
-    const { value } = event.target;
-    if (!value || value === '0') {
-      setCartItems(cartItems.filter((item) => item.id !== product.id));
-      return;
-    }
-    setCartItems((prev) => {
-      const isItemInCart = prev.find((item) => item.id === product.id);
-
-      if (isItemInCart) {
-        return prev.map((item) =>
-          item.id === product.id
-            ? { ...item, quantity: parseInt(event.target.value) }
-            : item
-        );
-      }
-    });
+  const onCheckout = () => {
+    dispatch(createOrder());
   };
+
+  useEffect(() => {
+    if (order && cartProducts.length === 0) {
+      push('/order');
+    }
+  }, [order, cartProducts, push, dispatch]);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <div>
-      {cartItems.length > 0 ? (
+      {cartProducts.length > 0 ? (
         <>
           <Typography mt={4} align='center' variant='h3'>
             Shopping Cart
@@ -70,11 +54,11 @@ const Cart = () => {
                   Products Details
                 </Typography>
               </DetailsContainer>
-              {cartItems.map((product, idx) => (
+              {cartProducts.map(({ product, quantity }, idx) => (
                 <Product
                   key={`${product.id}-${idx}`}
                   product={product}
-                  onQuantityChange={onQuantityChange}
+                  quantity={quantity}
                 />
               ))}
             </ProductWrapper>
@@ -87,7 +71,7 @@ const Cart = () => {
                   Items:
                 </Typography>
                 <Typography variant='subtitle1' gutterBottom component='p'>
-                  {cartItems.length}
+                  {totalItems}
                 </Typography>
               </SummaryItem>
               <SummaryItem>
@@ -105,10 +89,10 @@ const Cart = () => {
                   gutterBottom
                   component='p'
                 >
-                  {calculateTotal(cartItems).toFixed(2)}
+                  {totalCost.toFixed(2)}
                 </Typography>
               </SummaryItem>
-              <StyledButton fullWidth variant='contained'>
+              <StyledButton onClick={onCheckout} fullWidth variant='contained'>
                 Checkout
               </StyledButton>
             </SummaryWrapper>

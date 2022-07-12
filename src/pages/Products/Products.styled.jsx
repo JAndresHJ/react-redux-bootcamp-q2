@@ -8,3 +8,13 @@ export const MainContainer = styled.main`
   justify-content: space-evenly;
   margin: 30px 0;
 `;
+
+export const SearchContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  .MuiFormControl-root {
+    width: 40%;
+  }
+`;

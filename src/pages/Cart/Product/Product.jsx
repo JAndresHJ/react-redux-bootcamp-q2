@@ -1,10 +1,12 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { cartActions } from '../../../store';
+
+// Components
 import { StyledButton } from '../../../components/common/styled.components';
 import { Column, Row } from '../../../components/common/styled.components';
-
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import { getTotal } from '../Cart';
 import {
   ProductContainer,
   ProductDetailsContainer,
@@ -14,7 +16,24 @@ import {
   PriceQuantityContainer,
 } from './Product.styled';
 
-const Product = ({ product, onQuantityChange }) => {
+const getTotal = (quantity, price) => quantity * price;
+
+const Product = ({ product, quantity }) => {
+  const dispatch = useDispatch();
+
+  const onRemoveProduct = () => {
+    dispatch(cartActions.removeCartProduct(product.id));
+  };
+
+  const onQuantityChange = (event) => {
+    dispatch(
+      cartActions.addProduct({
+        ...product,
+        quantity: parseInt(event.target.value) - quantity,
+      })
+    );
+  };
+
   return (
     <ProductContainer>
       <ProductDetailsContainer>
@@ -27,16 +46,18 @@ const Product = ({ product, onQuantityChange }) => {
         <Row>
           <Column>
             <TextField
-              defaultValue={1}
-              onChange={(e) => onQuantityChange(e, product)}
+              defaultValue={quantity}
+              onChange={onQuantityChange}
               label='Quantity'
               type='number'
-              inputProps={{ min: 0 }}
+              inputProps={{ min: 1 }}
               InputLabelProps={{
                 shrink: true,
               }}
             />
-            <StyledButton variant='contained'>Remove</StyledButton>
+            <StyledButton onClick={onRemoveProduct} variant='contained'>
+              Remove
+            </StyledButton>
           </Column>
           <PriceContainer>
             <Typography>Price: </Typography>
@@ -45,7 +66,7 @@ const Product = ({ product, onQuantityChange }) => {
           <PriceContainer>
             <Typography>Total: </Typography>
             <Typography>
-              ${getTotal(product.quantity, product.price).toFixed(2)}
+              ${getTotal(quantity, product.price).toFixed(2)}
             </Typography>
           </PriceContainer>
         </Row>

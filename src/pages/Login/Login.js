@@ -1,29 +1,36 @@
 import React, { useState } from 'react';
-import loginApi from '../../utils/loginApi';
+import { login } from '../../store';
+import { useSelector, useDispatch } from 'react-redux';
 
 // Componets
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
+import Loading from '../../components/common/Loading';
 import { FormContainer } from './Login.styled';
 import { StyledButton } from '../../components/common/styled.components';
 
-const Login = ({ setIsLoggedIn }) => {
+const Login = () => {
+  const [openAlert, setOpenAlert] = useState(false);
   const [userValues, setUserValues] = useState({
     username: '',
     password: '',
   });
 
   const { username, password } = userValues;
+  const { error, loading } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
   const onSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await loginApi(username, password);
-      setIsLoggedIn(!!response);
-    } catch (error) {
-      console.error(error);
+      await dispatch(login({ username, password })).unwrap();
+    } catch (rejectedValue) {
+      console.error(rejectedValue);
+      setOpenAlert(true);
     }
   };
 
@@ -34,8 +41,25 @@ const Login = ({ setIsLoggedIn }) => {
     });
   };
 
+  if (loading) {
+    return <Loading />;
+  }
+
   return (
     <Container component='main' maxWidth='sm'>
+      <Snackbar
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+        open={openAlert}
+        onClose={() => setOpenAlert(false)}
+        autoHideDuration={3000}
+      >
+        <Alert severity='error' sx={{ width: '100%' }}>
+          {error}
+        </Alert>
+      </Snackbar>
       <FormContainer>
         <Typography component='h1' variant='h5' fontWeight='bold'>
           Welcome to WizeStore!
