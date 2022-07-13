@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 // Components
 import Card from '@mui/material/Card';
-import Button from '@mui/material/Button';
 
 export const StyledCard = MUIStyled(Card)(() => ({
   maxWidth: 300,
@@ -17,13 +16,6 @@ export const StyledCard = MUIStyled(Card)(() => ({
   boxShadow: '0 8px 40px -12px rgba(0,0,0,0.3)',
   '&:hover': {
     boxShadow: '0 16px 70px -12.125px rgba(0,0,0,0.3)',
-  },
-}));
-
-export const StyledButton = MUIStyled(Button)(() => ({
-  backgroundColor: '#203449',
-  '&:hover': {
-    backgroundColor: '#111823',
   },
 }));
 
