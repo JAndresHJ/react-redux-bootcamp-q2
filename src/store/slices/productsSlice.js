@@ -51,6 +51,13 @@ const productsSlice = createSlice({
     },
     removeFromFavorites: (state, action) => {
       const favoriteProduct = action.payload;
+      const productIdx = state.products.items.findIndex(
+        (product) => favoriteProduct.id === product.id
+      );
+      state.products.items[productIdx] = {
+        ...favoriteProduct,
+        isFavorite: false,
+      };
       state.favorites = state.favorites.filter(
         (favorite) => favorite.id !== favoriteProduct.id
       );

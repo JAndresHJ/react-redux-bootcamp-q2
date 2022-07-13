@@ -26,12 +26,18 @@ const Product = ({ product, quantity }) => {
   };
 
   const onQuantityChange = (event) => {
-    dispatch(
-      cartActions.addProduct({
-        ...product,
-        quantity: parseInt(event.target.value) - quantity,
-      })
-    );
+    const { value } = event.target;
+    if (value === '0') {
+      console.log('Removing');
+      dispatch(cartActions.removeCartProduct(product.id));
+    } else {
+      dispatch(
+        cartActions.addProduct({
+          ...product,
+          quantity: parseInt(value) - quantity,
+        })
+      );
+    }
   };
 
   return (
@@ -50,7 +56,7 @@ const Product = ({ product, quantity }) => {
               onChange={onQuantityChange}
               label='Quantity'
               type='number'
-              inputProps={{ min: 1 }}
+              inputProps={{ min: 0 }}
               InputLabelProps={{
                 shrink: true,
               }}
@@ -61,7 +67,7 @@ const Product = ({ product, quantity }) => {
           </Column>
           <PriceContainer>
             <Typography>Price: </Typography>
-            <Typography>{product.price}</Typography>
+            <Typography>${product.price}</Typography>
           </PriceContainer>
           <PriceContainer>
             <Typography>Total: </Typography>

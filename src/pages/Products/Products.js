@@ -14,17 +14,23 @@ const Products = () => {
     (state) => state.products
   );
   const [filteredProducts, setFilteredProducts] = useState([]);
-  const favoriteProductsIds = useMemo(() => {
-    return favorites.map((favorite) => favorite.id);
-  }, [favorites]);
+  const [search, setSearch] = useState('');
+  const favoriteProductsIds = useMemo(
+    () => favorites.map((favorite) => favorite.id),
+    [favorites]
+  );
 
   useEffect(() => {
     dispatch(getProducts());
   }, [dispatch]);
 
   useEffect(() => {
-    setFilteredProducts(products.items);
-  }, [products]);
+    const filteredProducts = products?.items?.filter((product) =>
+      product?.name.toLowerCase().includes(search.toLowerCase())
+    );
+
+    setFilteredProducts(filteredProducts);
+  }, [products, search, dispatch]);
 
   if (loading) {
     return <Loading />;
@@ -42,15 +48,17 @@ const Products = () => {
     clearTimeout(filterTimeout);
     const { value } = event.target;
     filterTimeout = setTimeout(() => {
-      const filteredProducts = products.items.filter((product) =>
-        product.name.toLowerCase().includes(value.toLowerCase())
-      );
-      setFilteredProducts(filteredProducts);
+      setSearch(value);
     }, 500);
   };
 
-  const isFavorite = (idx) =>
-    favoriteProductsIds.includes(products.items[idx].id);
+  const isFavorite = (idx) => {
+    if (filteredProducts) {
+      return favoriteProductsIds?.includes(filteredProducts[idx]?.id);
+    }
+
+    return false;
+  };
 
   return (
     <div>

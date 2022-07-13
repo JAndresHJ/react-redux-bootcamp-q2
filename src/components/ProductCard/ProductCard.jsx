@@ -56,7 +56,7 @@ const ProductCard = ({ product, isFavorite }) => {
           horizontal: 'right',
         }}
         open={alert.open}
-        autoHideDuration={3000}
+        autoHideDuration={2000}
         onClose={() => setAlert({ ...alert, open: false })}
       >
         <Alert severity='success' sx={{ width: '100%' }}>
