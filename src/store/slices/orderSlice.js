@@ -10,7 +10,6 @@ export const createOrder = createAsyncThunk(
         {
           headers: {
             'X-API-KEY': process.env.REACT_APP_PRODUCTS_API_KEY,
-            'Access-Control-Allow-Origin': '*',
           },
           method: 'POST',
           body: '',
