@@ -1,6 +1,6 @@
 [[redirects]]
-  from = “/api/*”
-  to = “https://6x8prpit9f.execute-api.us-east-1.amazonaws.com/api/:splat"
+  from = "/api/*"
+  to = "https://6x8prpit9f.execute-api.us-east-1.amazonaws.com/api/:splat"
   status = 200
 
 [[redirects]]
