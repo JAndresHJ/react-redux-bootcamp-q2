@@ -18,7 +18,7 @@ const Order = () => {
    * to the products page.
    */
   const goToProducts = () => {
-    push('./products');
+    push('./api/products');
     dispatch(orderActions.clearOrder());
   };
 

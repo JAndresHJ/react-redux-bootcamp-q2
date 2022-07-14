@@ -22,7 +22,7 @@ export const AppRouter = () => {
         <PublicRoute path='/login' component={Login} isLoggedIn={isLoggedIn} />
         <PrivateRoute
           exact
-          path='/products'
+          path='/api/products'
           component={Products}
           isLoggedIn={isLoggedIn}
         />
@@ -34,7 +34,7 @@ export const AppRouter = () => {
         />
         <PrivateRoute
           exact
-          path='/order'
+          path='/api/order'
           component={Order}
           isLoggedIn={isLoggedIn}
         />

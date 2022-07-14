@@ -12,7 +12,7 @@ const PublicRoute = ({
       {...rest}
       render={(props) =>
         isLoggedIn ? (
-          <Redirect to='/products' />
+          <Redirect to='/api/products' />
         ) : (
           <Component check={true} setIsLoggedIn={setIsLoggedIn} {...props} />
         )
