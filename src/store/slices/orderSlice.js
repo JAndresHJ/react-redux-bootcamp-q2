@@ -9,7 +9,7 @@ export const createOrder = createAsyncThunk(
         'https://6x8prpit9f.execute-api.us-east-1.amazonaws.com/api/orders',
         {
           headers: {
-            'X-API-KEY': process.env.REACT_APP_PRODUCTS_API_KEY,
+            'X-API-KEY': '4GY3hxhbpS1hM2rTUhv5U6gTgEyu99SxLRpOVzAe',
           },
           method: 'POST',
           body: '',
