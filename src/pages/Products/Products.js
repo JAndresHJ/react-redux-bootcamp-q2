@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getProducts } from '../../store';
 
 // Components
-import TextField from '@mui/material/TextField';
 import ProductCard from '../../components/ProductCard';
 import { MainContainer, SearchContainer } from './Products.styled';
 import Loading from '../../components/common/Loading';
+import { StyledInput } from '../../components/common/styled.components';
 
 const Products = () => {
   const dispatch = useDispatch();
@@ -63,7 +63,7 @@ const Products = () => {
   return (
     <div>
       <SearchContainer>
-        <TextField
+        <StyledInput
           fullWidth
           label='Search product...'
           type='search'

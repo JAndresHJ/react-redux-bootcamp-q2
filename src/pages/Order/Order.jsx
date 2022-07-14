@@ -12,6 +12,11 @@ const Order = () => {
   const { order } = useSelector((state) => state.order);
   const { push } = useHistory();
   const dispatch = useDispatch();
+
+  /**
+   * Once the order is completed, redirects
+   * to the products page.
+   */
   const goToProducts = () => {
     push('./products');
     dispatch(orderActions.clearOrder());
@@ -19,7 +24,7 @@ const Order = () => {
 
   return (
     <OrderContainer>
-      <Typography variant='h3' gutterBottom component='div'>
+      <Typography align='center' variant='h3' gutterBottom component='div'>
         {order.message}
       </Typography>
       <span>

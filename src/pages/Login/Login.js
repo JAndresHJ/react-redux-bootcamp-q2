@@ -3,7 +3,6 @@ import { login } from '../../store';
 import { useSelector, useDispatch } from 'react-redux';
 
 // Componets
-import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
@@ -11,7 +10,10 @@ import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import Loading from '../../components/common/Loading';
 import { FormContainer } from './Login.styled';
-import { StyledButton } from '../../components/common/styled.components';
+import {
+  StyledButton,
+  StyledInput,
+} from '../../components/common/styled.components';
 
 const Login = () => {
   const [openAlert, setOpenAlert] = useState(false);
@@ -24,6 +26,12 @@ const Login = () => {
   const { error, loading } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
+  /**
+   * On submission the login thunk will be dispatched. If an error
+   * happens an alert will be display with the message contained in
+   * the rejectedValue.
+   * @param {*} event
+   */
   const onSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -34,6 +42,11 @@ const Login = () => {
     }
   };
 
+  /**
+   * Manages the state value for both inputs, password
+   * and username.
+   * @param {*} event
+   */
   const onChange = (event) => {
     setUserValues({
       ...userValues,
@@ -65,7 +78,7 @@ const Login = () => {
           Welcome to WizeStore!
         </Typography>
         <Box component='form' onSubmit={onSubmit} noValidate sx={{ mt: 1 }}>
-          <TextField
+          <StyledInput
             margin='normal'
             required
             fullWidth
@@ -74,7 +87,7 @@ const Login = () => {
             autoFocus
             onChange={onChange}
           />
-          <TextField
+          <StyledInput
             margin='normal'
             required
             fullWidth

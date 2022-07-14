@@ -24,15 +24,25 @@ export const AppRouter = () => {
           exact
           path='/products'
           component={Products}
-          isLoggedIn={true}
+          isLoggedIn={isLoggedIn}
         />
-        <PrivateRoute exact path='/cart' component={Cart} isLoggedIn={true} />
-        <PrivateRoute exact path='/order' component={Order} isLoggedIn={true} />
+        <PrivateRoute
+          exact
+          path='/cart'
+          component={Cart}
+          isLoggedIn={isLoggedIn}
+        />
+        <PrivateRoute
+          exact
+          path='/order'
+          component={Order}
+          isLoggedIn={isLoggedIn}
+        />
         <PrivateRoute
           exact
           path='/favorites'
           component={Favorites}
-          isLoggedIn={true}
+          isLoggedIn={isLoggedIn}
         />
         <Redirect to='/login' />
       </Switch>

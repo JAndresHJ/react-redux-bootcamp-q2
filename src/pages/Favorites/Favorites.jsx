@@ -32,7 +32,9 @@ const Favorites = () => {
     <div>
       {favorites.length > 0 ? (
         <>
-          <h1>Favorites</h1>
+          <Typography mt={3} ml={2} align='left' variant='h4'>
+            Your favorites!
+          </Typography>
           <MainContainer>
             {favorites?.map((product) => (
               <StyledCard key={product.id}>

@@ -15,6 +15,6 @@ export const SearchContainer = styled.div`
   justify-content: center;
   margin-top: 20px;
   .MuiFormControl-root {
-    width: 40%;
+    width: 50%;
   }
 `;

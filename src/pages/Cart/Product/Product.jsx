@@ -3,9 +3,10 @@ import { useDispatch } from 'react-redux';
 import { cartActions } from '../../../store';
 
 // Components
-import { StyledButton } from '../../../components/common/styled.components';
-import { Column, Row } from '../../../components/common/styled.components';
-import TextField from '@mui/material/TextField';
+import {
+  StyledButton,
+  StyledInput,
+} from '../../../components/common/styled.components';
 import Typography from '@mui/material/Typography';
 import {
   ProductContainer,
@@ -14,6 +15,8 @@ import {
   DetailsWrapper,
   PriceContainer,
   PriceQuantityContainer,
+  QuantityColumn,
+  InputPriceContainer,
 } from './Product.styled';
 
 const getTotal = (quantity, price) => quantity * price;
@@ -21,14 +24,23 @@ const getTotal = (quantity, price) => quantity * price;
 const Product = ({ product, quantity }) => {
   const dispatch = useDispatch();
 
+  /**
+   * Remotes the current product from the
+   * cart state.
+   */
   const onRemoveProduct = () => {
     dispatch(cartActions.removeCartProduct(product.id));
   };
 
+  /**
+   * If the value entered is different than 0 the current
+   * product will be added to the cart state and update the
+   * quantity otherwise the product will be removed.
+   * @param {*} event
+   */
   const onQuantityChange = (event) => {
     const { value } = event.target;
     if (value === '0') {
-      console.log('Removing');
       dispatch(cartActions.removeCartProduct(product.id));
     } else {
       dispatch(
@@ -49,9 +61,9 @@ const Product = ({ product, quantity }) => {
         </DetailsWrapper>
       </ProductDetailsContainer>
       <PriceQuantityContainer>
-        <Row>
-          <Column>
-            <TextField
+        <InputPriceContainer>
+          <QuantityColumn>
+            <StyledInput
               defaultValue={quantity}
               onChange={onQuantityChange}
               label='Quantity'
@@ -64,7 +76,7 @@ const Product = ({ product, quantity }) => {
             <StyledButton onClick={onRemoveProduct} variant='contained'>
               Remove
             </StyledButton>
-          </Column>
+          </QuantityColumn>
           <PriceContainer>
             <Typography>Price: </Typography>
             <Typography>${product.price}</Typography>
@@ -75,7 +87,7 @@ const Product = ({ product, quantity }) => {
               ${getTotal(quantity, product.price).toFixed(2)}
             </Typography>
           </PriceContainer>
-        </Row>
+        </InputPriceContainer>
       </PriceQuantityContainer>
     </ProductContainer>
   );

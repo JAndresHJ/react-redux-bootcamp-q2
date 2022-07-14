@@ -8,7 +8,6 @@ export const login = createAsyncThunk(
       const response = await loginApi(username, password);
       return { user: response, isLoggedIn: true };
     } catch (error) {
-      //console.error(error);
       return thunkAPI.rejectWithValue('Invalid credentials');
     }
   }
@@ -24,6 +23,12 @@ const initialState = {
 const userSlice = createSlice({
   name: 'user',
   initialState,
+  reducers: {
+    logout: (state) => {
+      state.user = null;
+      state.isLoggedIn = false;
+    },
+  },
   extraReducers: {
     [login.pending]: (state) => {
       state.loading = true;
@@ -42,5 +47,7 @@ const userSlice = createSlice({
     },
   },
 });
+
+export const userActions = userSlice.actions;
 
 export default userSlice.reducer;
