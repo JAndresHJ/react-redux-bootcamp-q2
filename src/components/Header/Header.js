@@ -23,7 +23,7 @@ const Header = () => {
       <Links to='/'>Wizestore</Links>
       {isLoggedIn && (
         <FlexContainer>
-          <Links to='/api/products'>Products</Links>
+          <Links to='/products'>Products</Links>
           <Badge
             sx={{
               '& .MuiBadge-badge': {

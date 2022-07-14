@@ -32,7 +32,7 @@ const Cart = () => {
 
   useEffect(() => {
     if (order && cartProducts.length === 0) {
-      push('/api/order');
+      push('/order');
     }
   }, [order, cartProducts, push, dispatch]);
 
@@ -101,7 +101,7 @@ const Cart = () => {
       ) : (
         <Typography mt={4} align='center' variant='h5'>
           There is no items in your Cart. Browse our{' '}
-          <Link to='/api/products'>products</Link>
+          <Link to='/products'>products</Link>
         </Typography>
       )}
     </div>

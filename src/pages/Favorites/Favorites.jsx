@@ -78,7 +78,7 @@ const Favorites = () => {
       ) : (
         <Typography mt={4} align='center' variant='h5'>
           You do not have favorites products. Browse our{' '}
-          <Link to='/api/products'>products</Link>
+          <Link to='/products'>products</Link>
         </Typography>
       )}
     </div>
