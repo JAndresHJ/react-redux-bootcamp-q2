@@ -20,7 +20,7 @@ export const SummaryWrapper = styled(Column)`
   background-color: #e5e7eb;
 
   @media (max-width: 1024px) {
-    align-self: flex-end;
+    align-self: flex-start;
   }
 `;
 
